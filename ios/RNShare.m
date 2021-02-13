@@ -190,6 +190,7 @@ RCT_EXPORT_METHOD(open:(NSDictionary *)options
     }
     BOOL saveToFiles = [RCTConvert BOOL:options[@"saveToFiles"]];
     NSArray *urlsArray = options[@"urls"];
+    NSArray *filenamesArray = options[@"filenames"];
     for (int i=0; i<urlsArray.count; i++) {
         NSURL *URL = [RCTConvert NSURL:urlsArray[i]];
         if (URL) {
@@ -202,13 +203,10 @@ RCT_EXPORT_METHOD(open:(NSDictionary *)options
                     failureCallback(error);
                     return;
                 }
-                if (saveToFiles) {
-                    NSURL *filePath = [Utils getPathFromBase64:URL.absoluteString with:data];
-                    if (filePath) {
-                        [items addObject: filePath];
-                    }
-                } else {
-                    [items addObject:data];
+                NSString *name = filenamesArray[i];
+                NSURL *filePath = [Utils getPathFromBase64:URL.absoluteString with:data name:name];
+                if (filePath) {
+                    [items addObject: filePath];
                 }
             } else {
                 [items addObject:URL];

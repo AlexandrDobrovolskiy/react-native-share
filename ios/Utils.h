@@ -1,4 +1,4 @@
 @interface Utils : NSObject
 +(NSString*)getExtensionFromBase64:(NSString*)base64String;
-+(NSURL*)getPathFromBase64:(NSString*)base64String with:(NSData*)data;
++(NSURL*)getPathFromBase64:(NSString*)base64String with:(NSData*)data name:(NSString*)name;
 @end
